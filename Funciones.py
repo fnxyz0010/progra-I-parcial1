@@ -267,19 +267,6 @@ def mostrar_participante_por_nombre(
         print("\n")
 
 
-# Ej. promedios:
-# [0.0, 0.0, 0.0, 0.0, 0.0]
-
-# Ej. matriz de puntajes: 5 participantes x 3 jurados::::
-# [
-#  [0, 0, 0],
-#  [0, 0, 0],
-#  [0, 0, 0],
-#  [0, 0, 0],
-#  [0, 0, 0],
-# ]
-
-
 # FUNCIONES DE UTILIDAD
 def agregar_a_lista(lista: list, item):
     nueva_lista = [0] * (len(lista) + 1)
