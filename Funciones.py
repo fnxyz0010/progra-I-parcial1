@@ -128,7 +128,7 @@ def calc_promedio_jurados(puntajes: list[list[int]]) -> list[float]:
 def mostrar_promedio_jurados(promedios: list[float]) -> None:
     print("-----PROMEDIO DE CADA JURADO-----\n")
     for i in range(len(promedios)):
-        print(f"JURADO {i + 1}: {promedios[i]:.2f}")
+        print(f"JURADO {i + 1}: {promedios[i]:.2f}\n")
 
 
 def mostrar_jurado_estricto(promedios: list[float]) -> None:
@@ -157,35 +157,29 @@ def mostrar_jurado_generoso(promedios: list[float]) -> None:
     print(f"PROMEDIO: {promedio_mas_alto:.2f}\n")
 
 
-def mostrar_participantes_puntuaciones_iguales(promedios: list[float]) -> list[int]:
-    print("-----PARTICIPANTES CON PUNTUACIONES IGUALES-----\n")
+def mostrar_participantes_puntuaciones_iguales(
+    promedios: list[float], participantes: list[str]
+):
+    print("-----PUNTUACIONES IGUALES-----\n")
 
-    length = len(promedios)
-    posiciones_repetidas = [0] * length
-    contador = 0
+    indices_iguales = []
+    for i in range(len(promedios)):
+        for j in range(i + 1, len(promedios)):
+            if promedios[i] == promedios[j]:
+                indices_iguales = agregar_a_lista(indices_iguales, i)
+                indices_iguales = agregar_a_lista(indices_iguales, j)
 
-    for i in range(length):
-        encontrado = False
-        for j in range(length):
-            if i != j and promedios[i] == promedios[j]:
-                encontrado = True
-                break
-        if encontrado:
-            ya_esta = False
-            for k in range(contador):
-                if posiciones_repetidas[k] == i:
-                    ya_esta = True
-                    break
-            if not ya_esta:
-                posiciones_repetidas[contador] = i
-                contador += 1
+    indices_iguales_unicos = filtrar_repetidos(indices_iguales)
 
-    return posiciones_repetidas[:contador]
+    for i in range(len(indices_iguales_unicos)):
+        participante = participantes[indices_iguales_unicos[i]]
+        print(f"NOMBRE PARTICIPANTE: {participante}")
+        print(f"PROMEDIO: {promedios[indices_iguales_unicos[i]]:.2f}\n")
 
 
-def buscar_participante_por_nombre(participantes):
+def buscar_participante_por_nombre(participantes: list[str]):
     print("-----PARTICIPANTE POR NOMBRE-----\n")
-    nombre = input("Nombre del participante: ")
+    nombre = input("Buscar participante: ")
     for i in range(len(participantes)):
         if nombre.lower() == participantes[i].lower():
             return i
@@ -201,18 +195,22 @@ def mostrar_participante_por_nombre(
         print("No se encontro un participante con este nombre.")
         return None
 
-    print(f"NOMBRE PARTICIPANTE: {participantes[pos]}")
+    print(f"\nPARTICIPANTE ENCONTRADO: {participantes[pos]}")
+
+    print("PUNTAJES:")
 
     suma = 0
     for i in range(len(puntajes[pos])):
-        print(f"JURADO {i + 1}: {puntajes[pos][i]}")
+        print(f"\tJURADO {i + 1}: {puntajes[pos][i]}")
         suma += puntajes[pos][i]
 
     print(f"PUNTAJE PROMEDIO: {(suma / cantidad_jurados):.2f}/10\n")
 
 
-# [0, 0, 0, 0, 0]
+# Ej. promedios:
+# [0.0, 0.0, 0.0, 0.0, 0.0]
 
+# Ej. matriz de puntajes: 5 participantes x 3 jurados::::
 # [
 #  [0, 0, 0],
 #  [0, 0, 0],
@@ -220,3 +218,25 @@ def mostrar_participante_por_nombre(
 #  [0, 0, 0],
 #  [0, 0, 0],
 # ]
+
+
+# FUNCIONES DE UTILIDAD
+def agregar_a_lista(lista: list, item):
+    nueva_lista = [0] * (len(lista) + 1)
+    for i in range(len(lista)):
+        nueva_lista[i] = lista[i]
+    nueva_lista[len(lista)] = item
+    return nueva_lista
+
+
+def filtrar_repetidos(lista: list) -> list:
+    unicos = []
+    for i in range(len(lista)):
+        en_lista = False
+        for j in range(len(unicos)):
+            if lista[i] == unicos[j]:
+                en_lista = True
+                break
+        if not en_lista:
+            unicos = agregar_a_lista(unicos, lista[i])
+    return unicos
