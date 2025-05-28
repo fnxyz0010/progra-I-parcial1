@@ -24,15 +24,11 @@ def ingresar_participantes(num_participantes: int) -> list[str]:
 
 
 def ingresar_puntajes(num_jurados: int, num_participantes: int) -> list[list[int]]:
-    print("\n")
-    print("-----INGRESAR PUNTAJES-----")
-
     puntajes = [[0 for _ in range(num_participantes)] for _ in range(num_jurados)]
     participante = 0
     jurado = 0
 
     for i in range(num_participantes):
-        print("\n")
         print(f"PARTICIPANTE {i + 1}:")
 
         while True:
@@ -53,6 +49,7 @@ def ingresar_puntajes(num_jurados: int, num_participantes: int) -> list[list[int
 
             puntajes[jurado][participante] = puntaje
             jurado += 1
+        print("\n")
         participante += 1
         jurado = 0
         i += 1
