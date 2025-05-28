@@ -177,7 +177,7 @@ def mostrar_participantes_puntuaciones_iguales(
         print(f"PROMEDIO: {promedios[indices_iguales_unicos[i]]:.2f}\n")
 
 
-def buscar_participante_por_nombre(participantes: list[str]):
+def buscar_participante_por_nombre(participantes: list[str]) -> int:
     print("-----PARTICIPANTE POR NOMBRE-----\n")
     nombre = input("Buscar participante: ")
     for i in range(len(participantes)):
@@ -189,22 +189,21 @@ def buscar_participante_por_nombre(participantes: list[str]):
 def mostrar_participante_por_nombre(
     puntajes: list[list[int]], participantes: list[str], cantidad_jurados: int
 ) -> None:
-    pos = buscar_participante_por_nombre(participantes)
+    indice = buscar_participante_por_nombre(participantes)
 
-    if pos == -1:
+    if indice == -1:
         print("No se encontro un participante con este nombre.")
         return None
 
-    print(f"\nPARTICIPANTE ENCONTRADO: {participantes[pos]}")
-
-    print("PUNTAJES:")
+    print(f"\nPARTICIPANTE ENCONTRADO: {participantes[indice]}")
 
     suma = 0
-    for i in range(len(puntajes[pos])):
-        print(f"\tJURADO {i + 1}: {puntajes[pos][i]}")
-        suma += puntajes[pos][i]
+    for i in range(len(puntajes)):
+        puntaje = puntajes[i][indice]
+        print(f"JURADO {i + 1}: {puntaje}")
+        suma += puntaje
 
-    print(f"PUNTAJE PROMEDIO: {(suma / cantidad_jurados):.2f}/10\n")
+    print(f"PROMEDIO: {(suma / cantidad_jurados):.2f}")
 
 
 # Ej. promedios:
