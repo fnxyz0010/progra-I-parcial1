@@ -4,7 +4,6 @@ from Funciones import *
 cantidad_participantes = 5
 cantidad_jurados = 3
 
-
 print("################### INGRESA A LOS PARTICIPANTES ###################\n")
 participantes = ingresar_participantes(cantidad_participantes)
 
@@ -16,6 +15,9 @@ puntajes = ingresar_puntajes(cantidad_jurados, cantidad_participantes)
 print("\n")
 
 promedios = calc_promedios(cantidad_jurados, puntajes)
+
+for i in rango(fin=20):
+    print("\n")
 
 while True:
     print("Que queres hacer?\n")
@@ -32,11 +34,11 @@ while True:
     comando = input("Comando (1-8): ")
 
     if not es_digito(comando):
-        for i in range(20):
+        for i in rango(fin=20):
             print("\n")
         print("Comando invalido: elegir entre 1 y 8.\n")
         input("Enter para continuar.")
-        for i in range(20):
+        for i in rango(fin=20):
             print("\n")
         continue
 

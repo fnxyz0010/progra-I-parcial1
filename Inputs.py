@@ -1,34 +1,35 @@
 from Funciones import *
 
 
-def ingresar_participantes(num_participantes: int) -> list[str]:
-    participantes = [""] * num_participantes
+def ingresar_participantes(cantidad_participantes: int) -> list[str]:
+    participantes = []
     contador = 0
 
     while True:
-        if contador >= num_participantes:
+        if contador >= cantidad_participantes:
             break
 
-        p = input(f"NOMBRE PARTICIPANTE {contador + 1}: ")
-
-        if not validar_nombre(p):
+        nombre = input(f"NOMBRE PARTICIPANTE {contador + 1}: ")
+        if not validar_nombre(nombre):
             print(
                 "El nombre debe tener al menos 3 caracteres y solo contener letras y espacios."
             )
             continue
 
-        participantes[contador] = p
+        participantes = agregar_a_lista(participantes, nombre)
         contador += 1
 
     return participantes
 
 
 def ingresar_puntajes(num_jurados: int, num_participantes: int) -> list[list[int]]:
-    puntajes = [[0 for _ in range(num_participantes)] for _ in range(num_jurados)]
+    puntajes = [
+        [0 for _ in rango(fin=num_participantes)] for _ in rango(fin=num_jurados)
+    ]
     participante = 0
     jurado = 0
 
-    for i in range(num_participantes):
+    for i in rango(fin=num_participantes):
         print(f"PARTICIPANTE {i + 1}:")
 
         while True:
@@ -49,6 +50,7 @@ def ingresar_puntajes(num_jurados: int, num_participantes: int) -> list[list[int
 
             puntajes[jurado][participante] = puntaje
             jurado += 1
+
         print("\n")
         participante += 1
         jurado = 0
