@@ -1,7 +1,3 @@
-"""
-Todas las funciones deben estar documentadas.
-"""
-
 import re
 
 
@@ -57,6 +53,27 @@ def mostrar_puntuaciones(
     puntajes: list[list[int]],
     promedios: list[float],
 ) -> None:
+    """Muestra la puntuacion y promedio de cada participante junto con su nombre.
+
+    Args:
+        cant_jurados (int): Cantidad de jurados.
+        participantes (list[str]): Lista de nombres de los participantes.
+            Por ejemplo: ["Juan", "Martina", "Facundo", "Julia", "Pedro"]
+        puntajes (list[list[int]]): Matriz de puntajes (cant. participantes x puntaje de cada jurado).
+            Por ejemplo una matriz con 5 participantes y puntajes de 3 jurados:
+            [
+                [5,6,8],
+                [5,8,9],
+                [9,10,7],
+                [4,5,5],
+                [7,7,8]
+            ]
+        promedios (list[float]): Lista de promedios de cada participante.
+            Por ejemplo: [6.33, 7.33, 8.66, 4.66, 7.33]
+
+    Returns:
+        None
+    """
     for i in rango(fin=20):
         print("\n")
 
@@ -77,6 +94,18 @@ def mostrar_puntuaciones(
 def mostrar_promedios_menores_a(
     promedio: int, promedios: list[float], participantes: list[str]
 ) -> None:
+    """Muestra los participantes con promedios menores a un numero.
+
+    Args:
+        promedio (int): Promedio maximo.
+        promedios (list[float]): Lista de promedios de cada participante.
+            Por ejemplo: [6.33, 7.33, 8.66, 4.66, 7.33]
+        participantes (list[str]): Lista de nombres de los participantes.
+            Por ejemplo: ["Juan", "Martina", "Facundo", "Julia", "Pedro"]
+
+    Returns:
+        None
+    """
     for i in rango(fin=20):
         print("\n")
 
@@ -102,7 +131,15 @@ def calc_promedios(cant_jurados: int, puntajes: list[list[int]]) -> list[float]:
 
     Args:
         cant_jurados (int): Cantidad de jurados.
-        puntajes (list[list[int]]): Matriz [jurado][participante] con los puntajes.
+        puntajes (list[list[int]]): Matriz de puntajes (cant. participantes x puntaje de cada jurado).
+            Por ejemplo una matriz con 5 participantes y puntajes de 3 jurados:
+            [
+                [5,6,8],
+                [5,8,9],
+                [9,10,7],
+                [4,5,5],
+                [7,7,8]
+            ]
 
     Returns:
         list[float]: Lista de promedios por participante.
@@ -119,33 +156,19 @@ def calc_promedios(cant_jurados: int, puntajes: list[list[int]]) -> list[float]:
     return promedios
 
 
-def calc_promedio_jurados(puntajes: list[list[int]]) -> list[float]:
-    """Calcula el promedio de puntajes dados por cada jurado.
+def mostrar_promedio_jurados(promedios: list[float]) -> None:
+    """Muestra el promedio de puntos de cada jurado.
 
     Args:
-        puntajes (list[list[int]]): Matriz [jurado][participante] con los puntajes.
+        promedios (list[float]): Lista de promedios de cada jurado.
 
     Returns:
-        list[float]: Lista de promedios por jurado.
+        None
     """
-    cant_jurados = largo(puntajes)
-    promedios = [0.0] * cant_jurados
-
-    for j in rango(fin=cant_jurados):
-        suma = 0
-        cantidad = largo(puntajes[j])
-        for i in rango(fin=cantidad):
-            suma += puntajes[j][i]
-        promedios[j] = suma / cantidad
-
-    return promedios
-
-
-def mostrar_promedio_jurados(promedios: list[float]) -> None:
     for i in rango(fin=20):
         print("\n")
 
-    print("################ PROMEDIO DE CADA JURADO ################\n")
+    print("################ PROMEDIO DE PUNTOS DE CADA JURADO ################\n")
 
     for i in rango(fin=largo(promedios)):
         print(f"JURADO {i + 1}: {promedios[i]:.2f}\n")
@@ -157,6 +180,14 @@ def mostrar_promedio_jurados(promedios: list[float]) -> None:
 
 
 def mostrar_jurado_estricto(promedios: list[float]) -> None:
+    """Muestra el el promedio del jurado mas estricto.
+
+    Args:
+        promedios (list[float]): Lista de promedios de cada jurado.
+
+    Returns:
+        None
+    """
     for i in rango(fin=20):
         print("\n")
 
@@ -179,6 +210,14 @@ def mostrar_jurado_estricto(promedios: list[float]) -> None:
 
 
 def mostrar_jurado_generoso(promedios: list[float]) -> None:
+    """Muestra el el promedio del jurado mas generoso.
+
+    Args:
+        promedios (list[float]): Lista de promedios de cada jurado.
+
+    Returns:
+        None
+    """
     for i in rango(fin=20):
         print("\n")
 
@@ -202,7 +241,17 @@ def mostrar_jurado_generoso(promedios: list[float]) -> None:
 
 def mostrar_participantes_puntuaciones_iguales(
     promedios: list[float], participantes: list[str]
-):
+) -> None:
+    """Muestra a los participantes con puntuaciones (promedio) iguales.
+
+    Args:
+        promedios (list[float]): Lista de promedios de cada jurado.
+        participantes (list[str]): Lista de nombres de los participantes.
+            Por ejemplo: ["Juan", "Martina", "Facundo", "Julia", "Pedro"]
+
+    Returns:
+        None
+    """
     for i in rango(fin=20):
         print("\n")
 
@@ -217,6 +266,11 @@ def mostrar_participantes_puntuaciones_iguales(
 
     indices_iguales_unicos = filtrar_repetidos(indices_iguales)
 
+    if largo(indices_iguales_unicos) <= 0:
+        print("\nNo existen participantes con puntuaciones iguales.\n")
+        input("Enter para continuar.")
+        return None
+
     for i in rango(fin=largo(indices_iguales_unicos)):
         participante = participantes[indices_iguales_unicos[i]]
         print(f"NOMBRE PARTICIPANTE: {participante}")
@@ -229,6 +283,15 @@ def mostrar_participantes_puntuaciones_iguales(
 
 
 def buscar_participante_por_nombre(participantes: list[str]) -> int:
+    """Busca el indice del participante encontrado por su nombre.
+
+    Args:
+        participantes (list[str]): Lista de nombres de los participantes.
+            Por ejemplo: ["Juan", "Martina", "Facundo", "Julia", "Pedro"]
+
+    Returns:
+        int : Indice del participante en la lista de participantes.
+    """
     nombre = input("Buscar participante: ")
     for i in rango(fin=largo(participantes)):
         if nombre.lower() == participantes[i].lower():
@@ -238,7 +301,26 @@ def buscar_participante_por_nombre(participantes: list[str]) -> int:
 
 def mostrar_participante_por_nombre(
     puntajes: list[list[int]], participantes: list[str], cantidad_jurados: int
-):
+) -> None:
+    """Muestra el resultado de la busqueda de un participante.
+
+    Args:
+        puntajes (list[list[int]]): Matriz de puntajes (cant. participantes x puntaje de cada jurado).
+            Por ejemplo una matriz con 5 participantes y puntajes de 3 jurados:
+            [
+                [5,6,8],
+                [5,8,9],
+                [9,10,7],
+                [4,5,5],
+                [7,7,8]
+            ]
+        participantes (list[str]): Lista de nombres de los participantes.
+            Por ejemplo: ["Juan", "Martina", "Facundo", "Julia", "Pedro"]
+        cantidad_jurados (int): Cantidad de jurados.
+
+    Returns:
+        None
+    """
     for i in rango(fin=20):
         print("\n")
 
@@ -274,6 +356,15 @@ def mostrar_participante_por_nombre(
 
 # FUNCIONES DE UTILIDAD
 def agregar_a_lista(lista: list, item) -> list:
+    """Agrega un item a una lista.
+
+    Args:
+        lista (list): Lista original.
+        item: Nuevo item a agregar.
+
+    Returns:
+        list: Nueva lista con el nuevo item agregado.
+    """
     nueva_lista = [0] * (largo(lista) + 1)
     contador = 0
     for elemento in lista:
@@ -284,6 +375,14 @@ def agregar_a_lista(lista: list, item) -> list:
 
 
 def filtrar_repetidos(lista: list) -> list:
+    """Filtra una lista dejando solo los elementos unicos.
+
+    Args:
+        lista (list): Lista original.
+
+    Returns:
+        list: Nueva lista de elementos unicos.
+    """
     unicos = []
     for i in rango(fin=largo(lista)):
         en_lista = False
@@ -297,6 +396,14 @@ def filtrar_repetidos(lista: list) -> list:
 
 
 def es_digito(item: str) -> bool:
+    """Chequea si un item es un numero (0-9).
+
+    Args:
+        item (str): item a comprobar.
+
+    Returns:
+        bool : True si el item es un digito, False si no lo es.
+    """
     if item == "":
         return False
     for i in item:
@@ -306,14 +413,32 @@ def es_digito(item: str) -> bool:
 
 
 def es_alfabetico(texto: str) -> bool:
+    """Chequea si un texto tiene solamente letras o espacios, y al menos una letra.
+
+    Args:
+        texto (str): Texto a comprobar.
+
+    Returns:
+        bool : True si el texto es válido, False si no lo es.
+    """
+    tiene_letra = False
     for i in texto:
-        if i < "a" or i > "z":
-            if i < "A" or i > "Z":
-                return False
-    return True
+        if (i >= "a" and i <= "z") or (i >= "A" and i <= "Z"):
+            tiene_letra = True
+        elif i != " ":
+            return False
+    return tiene_letra
 
 
 def largo(lista: list | str) -> int:
+    """Cuenta la longitud de una lista o cadena de texto.
+
+    Args:
+        lista (list | str): Lista o cadena de texto a contar.
+
+    Returns:
+        int : Longitud de la lista o cadena de texto.
+    """
     cantidad = 0
     for _ in lista:
         cantidad += 1
@@ -321,6 +446,13 @@ def largo(lista: list | str) -> int:
 
 
 def rango(comienzo=0, fin=0) -> list[int]:
+    """Crea una lista de numeros desde un comienzo hasta un fin.
+    Args:
+        comienzo (int): Numero inicial.
+        fin (int): Numero final.
+    Returns:
+        list[int]: Lista de numeros desde comienzo hasta fin.
+    """
     cant_elementos = []
     while comienzo < fin:
         cant_elementos = agregar_a_lista(cant_elementos, comienzo)

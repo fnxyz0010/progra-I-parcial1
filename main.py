@@ -70,5 +70,12 @@ while True:
             mostrar_participante_por_nombre(puntajes, participantes, cantidad_jurados)
             continue
         case _:
-            print("Comando invalido: elegir entre 1 y 8.")
+            for i in rango(fin=20):
+                print("\n")
+            print("Comando invalido: elegir entre 1 y 8.\n")
+
+            input("Enter para continuar.")
+
+            for i in rango(fin=20):
+                print("\n")
             continue

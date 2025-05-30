@@ -2,6 +2,14 @@ from Funciones import *
 
 
 def ingresar_participantes(cantidad_participantes: int) -> list[str]:
+    """Ingresa los nombres de los participantes.
+
+    Args:
+        cantidad_participantes (int): Cantidad de participantes a ingresar.
+
+    Returns:
+        list[str]: Lista de nombres de los participantes.
+    """
     participantes = []
     contador = 0
 
@@ -22,14 +30,23 @@ def ingresar_participantes(cantidad_participantes: int) -> list[str]:
     return participantes
 
 
-def ingresar_puntajes(num_jurados: int, num_participantes: int) -> list[list[int]]:
+def ingresar_puntajes(num_jurados: int, cant_participantes: int) -> list[list[int]]:
+    """Ingresa los puntajes de los jurados para cada participante.
+
+    Args:
+        cant_jurados (int): Cantidad de jurados.
+        cant_participantes (int): Cantidad de participantes.
+
+    Returns:
+        list[list[int]]: Matriz con los puntajes de cada jurado para cada participante.
+    """
     puntajes = [
-        [0 for _ in rango(fin=num_participantes)] for _ in rango(fin=num_jurados)
+        [0 for _ in rango(fin=cant_participantes)] for _ in rango(fin=num_jurados)
     ]
     participante = 0
     jurado = 0
 
-    for i in rango(fin=num_participantes):
+    for i in rango(fin=cant_participantes):
         print(f"PARTICIPANTE {i + 1}:")
 
         while True:
